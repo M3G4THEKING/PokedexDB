@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ pokemon['Pokemon Name'] }} | Pokédex</title>
+    <link rel="stylesheet" href="../css/styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <header>
+        <nav class="main-nav">
+            <div class="container">
+                <div class="nav-brand">
+                    <a href="index.html">
+                        <h1>Pokédex</h1>
+                    </a>
+                </div>
+                <div class="nav-links">
+                    <a href="index.html" class="nav-link">Home</a>
+                    <div class="dropdown">
+                        <button class="dropbtn">Types 
+                            <i class="fa fa-caret-down"></i>
+                        </button>
+                        <div class="dropdown-content">
+                            <a href="categories/normal.html">Normal</a>
+                            <a href="categories/fire.html">Fire</a>
+                            <a href="categories/water.html">Water</a>
+                            <a href="categories/electric.html">Electric</a>
+                            <a href="categories/grass.html">Grass</a>
+                            <a href="categories/ice.html">Ice</a>
+                            <a href="categories/fighting.html">Fighting</a>
+                            <a href="categories/poison.html">Poison</a>
+                            <a href="categories/ground.html">Ground</a>
+                            <a href="categories/flying.html">Flying</a>
+                            <a href="categories/psychic.html">Psychic</a>
+                            <a href="categories/bug.html">Bug</a>
+                            <a href="categories/rock.html">Rock</a>
+                            <a href="categories/ghost.html">Ghost</a>
+                            <a href="categories/dragon.html">Dragon</a>
+                            <a href="categories/dark.html">Dark</a>
+                            <a href="categories/steel.html">Steel</a>
+                            <a href="categories/fairy.html">Fairy</a>
+                        </div>
+                    </div>
+                    <a href="pages/about.html" class="nav-link">About</a>
+                    <a href="pages/contact.html" class="nav-link">Contact</a>
+                </div>
+                <div class="search-container">
+                    <input type="text" id="searchInput" placeholder="Search Pokémon...">
+                </div>
+            </div>
+        </nav>
+    </header>    
+    <main class="container">
+        <div class="pokemon-detail">
+            <div class="pokemon-header">
+                <div class="pokemon-number">#{{ pokemon['Pokedex Number'] }}</div>
+                <h1 class="pokemon-name">{{ pokemon['Pokemon Name'] }}</h1>
+                {% if pokemon['Alternate Form Name'] %}
+                <div class="form-name">{{ pokemon['Alternate Form Name'] }} Form</div>
+                {% endif %}
+                <div class="type-container">
+                    <span class="type-badge {{ pokemon['Primary Type'] }}">{{ pokemon['Primary Type'] }}</span>
+                    {% if pokemon['Secondary Type'] and pokemon['Secondary Type'] != 'nan' %}
+                    <span class="type-badge {{ pokemon['Secondary Type'] }}">{{ pokemon['Secondary Type'] }}</span>
+                    {% endif %}
+                </div>
+            </div>
+
+            <div class="pokemon-info-grid">
+                <div class="info-section">
+                    <h2>Basic Information</h2>
+                    <p><strong>Classification:</strong> {{ pokemon['Classification'] }}</p>
+                    <p><strong>Height:</strong> {{ pokemon['Pokemon Height'] }}m</p>
+                    <p><strong>Weight:</strong> {{ pokemon['Pokemon Weight'] }}kg</p>
+                    <p><strong>Gender Ratio:</strong> {{ pokemon['Male Ratio'] }}% Male, {{ pokemon['Female Ratio'] }}% Female</p>
+                    <p><strong>Base Happiness:</strong> {{ pokemon['Base Happiness'] }}</p>
+                    <p><strong>Catch Rate:</strong> {{ pokemon['Catch Rate'] }}</p>
+                    {% if pokemon['Legendary Type'] %}
+                    <p><strong>Legendary Type:</strong> {{ pokemon['Legendary Type'] }}</p>
+                    {% endif %}
+                </div>
+
+                <div class="info-section">
+                    <h2>Abilities</h2>
+                    <div class="ability-card primary">
+                        <h3>{{ pokemon['Primary Ability'] }}</h3>
+                        <p>{{ pokemon['Primary Ability Description'] }}</p>
+                    </div>
+                    {% if pokemon['Secondary Ability'] and pokemon['Secondary Ability'] != 'nan' %}
+                    <div class="ability-card">
+                        <h3>{{ pokemon['Secondary Ability'] }}</h3>
+                        <p>{{ pokemon['Secondary Ability Description'] }}</p>
+                    </div>
+                    {% endif %}
+                    {% if pokemon['Hidden Ability'] and pokemon['Hidden Ability'] != 'nan' %}
+                    <div class="ability-card hidden">
+                        <h3>Hidden Ability: {{ pokemon['Hidden Ability'] }}</h3>
+                        <p>{{ pokemon['Hidden Ability Description'] }}</p>
+                    </div>
+                    {% endif %}
+                </div>
+
+                <div class="info-section stats-section">
+                    <h2>Base Stats</h2>
+                    <div class="stats-grid">
+                        <div class="stat-circle-wrapper">
+                            <div class="stat-circle">
+                                <div class="stat-circle-inner">
+                                    <div class="stat-value">{{ pokemon['Health Stat'] }}</div>
+                                    <div class="stat-label">HP</div>
+                                </div>
+                                <svg viewBox="0 0 36 36">
+                                    <path d="M18 2.0845
+                                        a 15.9155 15.9155 0 0 1 0 31.831
+                                        a 15.9155 15.9155 0 0 1 0 -31.831"
+                                        fill="none"
+                                        stroke="#eee"
+                                        stroke-width="3"
+                                        class="stat-circle-bg"
+                                    />
+                                    <path d="M18 2.0845
+                                        a 15.9155 15.9155 0 0 1 0 31.831
+                                        a 15.9155 15.9155 0 0 1 0 -31.831"
+                                        fill="none"
+                                        stroke="#FF5959"
+                                        stroke-width="3"
+                                        class="stat-circle-fill hp"
+                                        stroke-dasharray="{{ (pokemon['Health Stat'] / 255.0) * 100 }} 100"
+                                    />
+                                </svg>
+                            </div>
+                        </div>
+
+                        <div class="stat-circle-wrapper">
+                            <div class="stat-circle">
+                                <div class="stat-circle-inner">
+                                    <div class="stat-value">{{ pokemon['Attack Stat'] }}</div>
+                                    <div class="stat-label">ATK</div>
+                                </div>
+                                <svg viewBox="0 0 36 36">
+                                    <path d="M18 2.0845
+                                        a 15.9155 15.9155 0 0 1 0 31.831
+                                        a 15.9155 15.9155 0 0 1 0 -31.831"
+                                        fill="none"
+                                        stroke="#eee"
+                                        stroke-width="3"
+                                        class="stat-circle-bg"
+                                    />
+                                    <path d="M18 2.0845
+                                        a 15.9155 15.9155 0 0 1 0 31.831
+                                        a 15.9155 15.9155 0 0 1 0 -31.831"
+                                        fill="none"
+                                        stroke="#F5AC78"
+                                        stroke-width="3"
+                                        class="stat-circle-fill attack"
+                                        style="stroke-dasharray: {{ (pokemon['Attack Stat'] / 255.0) * 100 }}, 100"
+                                    />
+                                </svg>
+                            </div>
+                        </div>
+
+                        <div class="stat-circle-wrapper">
+                            <div class="stat-circle">
+                                <div class="stat-circle-inner">
+                                    <div class="stat-value">{{ pokemon['Defense Stat'] }}</div>
+                                    <div class="stat-label">DEF</div>
+                                </div>
+                                <svg viewBox="0 0 36 36">
+                                    <path d="M18 2.0845
+                                        a 15.9155 15.9155 0 0 1 0 31.831
+                                        a 15.9155 15.9155 0 0 1 0 -31.831"
+                                        fill="none"
+                                        stroke="#eee"
+                                        stroke-width="3"
+                                        class="stat-circle-bg"
+                                    />
+                                    <path d="M18 2.0845
+                                        a 15.9155 15.9155 0 0 1 0 31.831
+                                        a 15.9155 15.9155 0 0 1 0 -31.831"
+                                        fill="none"
+                                        stroke="#FAE078"
+                                        stroke-width="3"
+                                        class="stat-circle-fill defense"
+                                        style="stroke-dasharray: {{ (pokemon['Defense Stat'] / 255.0) * 100 }}, 100"
+                                    />
+                                </svg>
+                            </div>
+                        </div>
+
+                        <div class="stat-circle-wrapper">
+                            <div class="stat-circle">
+                                <div class="stat-circle-inner">
+                                    <div class="stat-value">{{ pokemon['Special Attack Stat'] }}</div>
+                                    <div class="stat-label">SP.ATK</div>
+                                </div>
+                                <svg viewBox="0 0 36 36">
+                                    <path d="M18 2.0845
+                                        a 15.9155 15.9155 0 0 1 0 31.831
+                                        a 15.9155 15.9155 0 0 1 0 -31.831"
+                                        fill="none"
+                                        stroke="#eee"
+                                        stroke-width="3"
+                                        class="stat-circle-bg"
+                                    />
+                                    <path d="M18 2.0845
+                                        a 15.9155 15.9155 0 0 1 0 31.831
+                                        a 15.9155 15.9155 0 0 1 0 -31.831"
+                                        fill="none"
+                                        stroke="#9DB7F5"
+                                        stroke-width="3"
+                                        class="stat-circle-fill sp-attack"
+                                        style="stroke-dasharray: {{ (pokemon['Special Attack Stat'] / 255.0) * 100 }}, 100"
+                                    />
+                                </svg>
+                            </div>
+                        </div>
+
+                        <div class="stat-circle-wrapper">
+                            <div class="stat-circle">
+                                <div class="stat-circle-inner">
+                                    <div class="stat-value">{{ pokemon['Special Defense Stat'] }}</div>
+                                    <div class="stat-label">SP.DEF</div>
+                                </div>
+                                <svg viewBox="0 0 36 36">
+                                    <path d="M18 2.0845
+                                        a 15.9155 15.9155 0 0 1 0 31.831
+                                        a 15.9155 15.9155 0 0 1 0 -31.831"
+                                        fill="none"
+                                        stroke="#eee"
+                                        stroke-width="3"
+                                        class="stat-circle-bg"
+                                    />
+                                    <path d="M18 2.0845
+                                        a 15.9155 15.9155 0 0 1 0 31.831
+                                        a 15.9155 15.9155 0 0 1 0 -31.831"
+                                        fill="none"
+                                        stroke="#A7DB8D"
+                                        stroke-width="3"
+                                        class="stat-circle-fill sp-defense"
+                                        style="stroke-dasharray: {{ (pokemon['Special Defense Stat'] / 255.0) * 100 }}, 100"
+                                    />
+                                </svg>
+                            </div>
+                        </div>
+
+                        <div class="stat-circle-wrapper">
+                            <div class="stat-circle">
+                                <div class="stat-circle-inner">
+                                    <div class="stat-value">{{ pokemon['Speed Stat'] }}</div>
+                                    <div class="stat-label">SPD</div>
+                                </div>
+                                <svg viewBox="0 0 36 36">
+                                    <path d="M18 2.0845
+                                        a 15.9155 15.9155 0 0 1 0 31.831
+                                        a 15.9155 15.9155 0 0 1 0 -31.831"
+                                        fill="none"
+                                        stroke="#eee"
+                                        stroke-width="3"
+                                        class="stat-circle-bg"
+                                    />
+                                    <path d="M18 2.0845
+                                        a 15.9155 15.9155 0 0 1 0 31.831
+                                        a 15.9155 15.9155 0 0 1 0 -31.831"
+                                        fill="none"
+                                        stroke="#FA92B2"
+                                        stroke-width="3"
+                                        class="stat-circle-fill speed"
+                                        style="stroke-dasharray: {{ (pokemon['Speed Stat'] / 255.0) * 100 }}, 100"
+                                    />
+                                </svg>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="info-section">
+                    <h2>Training</h2>
+                    <p><strong>Base Experience:</strong> {{ pokemon['Experience Growth Total'] }}</p>
+                    <p><strong>EV Yield:</strong></p>
+                    <ul class="ev-list">
+                        {% if pokemon['Health EV'] > 0 %}<li>HP: +{{ pokemon['Health EV'] }}</li>{% endif %}
+                        {% if pokemon['Attack EV'] > 0 %}<li>Attack: +{{ pokemon['Attack EV'] }}</li>{% endif %}
+                        {% if pokemon['Defense EV'] > 0 %}<li>Defense: +{{ pokemon['Defense EV'] }}</li>{% endif %}
+                        {% if pokemon['Special Attack EV'] > 0 %}<li>Sp. Attack: +{{ pokemon['Special Attack EV'] }}</li>{% endif %}
+                        {% if pokemon['Special Defense EV'] > 0 %}<li>Sp. Defense: +{{ pokemon['Special Defense EV'] }}</li>{% endif %}
+                        {% if pokemon['Speed EV'] > 0 %}<li>Speed: +{{ pokemon['Speed EV'] }}</li>{% endif %}
+                    </ul>
+                </div>
+
+                <div class="info-section">
+                    <h2>Breeding</h2>
+                    <p><strong>Egg Groups:</strong> {{ pokemon['Primary Egg Group'] }}
+                    {% if pokemon['Secondary Egg Group'] and pokemon['Secondary Egg Group'] != 'nan' %}
+                        , {{ pokemon['Secondary Egg Group'] }}
+                    {% endif %}
+                    </p>
+                    <p><strong>Egg Cycles:</strong> {{ pokemon['Egg Cycle Count'] }}</p>
+                </div>
+
+                {% if pokemon['pre_evolution'] or pokemon['evolutions'] %}
+                <div class="info-section">
+                    <h2>Evolution Chain</h2>
+                    {% if pokemon['pre_evolution'] %}
+                    <div class="evolution pre">
+                        <a href="{{ pokemon['pre_evolution']['Pokedex Number'] }}_{{ pokemon['pre_evolution']['Pokemon Name'].lower() }}.html">
+                            ← {{ pokemon['pre_evolution']['Pokemon Name'] }}
+                        </a>
+                        <p class="evo-method">{{ pokemon['Evolution Details'] }}</p>
+                    </div>
+                    {% endif %}
+                    
+                    {% if pokemon['evolutions'] %}
+                    <div class="evolution next">
+                        {% for evolution in pokemon['evolutions'] %}
+                        <a href="{{ evolution['Pokedex Number'] }}_{{ evolution['Pokemon Name'].lower() }}.html">
+                            {{ evolution['Pokemon Name'] }} →
+                        </a>
+                        <p class="evo-method">{{ evolution['Evolution Details'] }}</p>
+                        {% endfor %}
+                    </div>
+                    {% endif %}
+                </div>
+                {% endif %}
+            </div>
+        </div>
+    </main>
+    
+    {{ footer.render(base_url='../') }}
+    
+    <script src="../js/search.js"></script>
+</body>
+</html> 

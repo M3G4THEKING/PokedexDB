@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pokédex - All Pokémon</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <!-- Include header -->
+    <header>
+        <nav class="main-nav">
+            <div class="container">
+                <div class="nav-brand">
+                    <a href="index.html">
+                        <h1>Pokédex</h1>
+                    </a>
+                </div>
+                <div class="nav-links">
+                    <a href="index.html" class="nav-link">Home</a>
+                    <div class="dropdown">
+                        <button class="dropbtn">Types 
+                            <i class="fa fa-caret-down"></i>
+                        </button>
+                        <div class="dropdown-content">
+                            <a href="categories/normal.html">Normal</a>
+                            <a href="categories/fire.html">Fire</a>
+                            <a href="categories/water.html">Water</a>
+                            <a href="categories/electric.html">Electric</a>
+                            <a href="categories/grass.html">Grass</a>
+                            <a href="categories/ice.html">Ice</a>
+                            <a href="categories/fighting.html">Fighting</a>
+                            <a href="categories/poison.html">Poison</a>
+                            <a href="categories/ground.html">Ground</a>
+                            <a href="categories/flying.html">Flying</a>
+                            <a href="categories/psychic.html">Psychic</a>
+                            <a href="categories/bug.html">Bug</a>
+                            <a href="categories/rock.html">Rock</a>
+                            <a href="categories/ghost.html">Ghost</a>
+                            <a href="categories/dragon.html">Dragon</a>
+                            <a href="categories/dark.html">Dark</a>
+                            <a href="categories/steel.html">Steel</a>
+                            <a href="categories/fairy.html">Fairy</a>
+                        </div>
+                    </div>
+                    <a href="pages/about.html" class="nav-link">About</a>
+                    <a href="pages/contact.html" class="nav-link">Contact</a>
+                </div>
+                <div class="search-container">
+                    <input type="text" id="searchInput" placeholder="Search Pokémon...">
+                </div>
+            </div>
+        </nav>
+    </header>    
+    <main class="container">
+        <!-- Type Categories Section -->
+        <section class="type-categories">
+            <h2 class="section-title">Pokémon Types</h2>
+            <div class="category-grid">
+                <!-- Add your type category cards here -->
+            </div>
+        </section>
+
+        <!-- All Pokemon Section -->
+        <section class="all-pokemon">
+            <h2 class="section-title">All Pokémon</h2>
+            <div class="pokemon-grid" id="pokemonGrid">
+                {% for pokemon in pokemon_list %}
+                <a href="pokemon_pages/{{ pokemon['Pokedex Number'] }}_{{ pokemon['Pokemon Name'].lower().replace(' ', '_').replace("'", '').replace('.', '') }}.html" class="pokemon-card">
+                    <div class="pokemon-number">#{{ pokemon['Pokedex Number'] }}</div>
+                    <h2 class="pokemon-name">{{ pokemon['Pokemon Name'] }}</h2>
+                    <div class="type-container">
+                        <span class="type-badge {{ pokemon['Primary Type'] }}">{{ pokemon['Primary Type'] }}</span>
+                        {% if pokemon['Secondary Type'] and pokemon['Secondary Type'] != 'nan' and pokemon['Secondary Type'] != 'NULL' %}
+                        <span class="type-badge {{ pokemon['Secondary Type'] }}">{{ pokemon['Secondary Type'] }}</span>
+                        {% endif %}
+                    </div>
+                </a>
+                {% endfor %}
+            </div>
+        </section>
+    </main>
+
+    <!-- Include footer -->
+    {% include 'footer.html' %}
+    
+    <script src="js/search.js"></script>
+</body>
+</html> 
